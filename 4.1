@@ -1,0 +1,75 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+template <typename T>
+int findSecondMaxIndex(T* arr, int size) {
+    if (size < 2) {
+        return -1; 
+    }
+
+    int maxIndex = 0;
+    int secondMaxIndex = -1;
+
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > arr[maxIndex]) {
+            secondMaxIndex = maxIndex;
+            maxIndex = i;
+        }
+        else if (arr[i] < arr[maxIndex]) {
+            if (secondMaxIndex == -1 || arr[i] > arr[secondMaxIndex]) {
+                secondMaxIndex = i;
+            }
+        }
+    }
+
+    return secondMaxIndex;
+}
+
+int main() {
+    const int size = 6;
+    float floatArr[size] = { 1.1, 2.2, 3.3, 2.2, 4.4, 1.1 };
+    double doubleArr[size] = { 1.1, 2.2, 3.3, 2.2, 4.4, 1.1 };
+    int intArr[size] = { 1, 2, 3, 2, 4, 1 };
+    char charArr[size] = { 'a', 'b', 'c', 'b', 'd', 'a' };
+
+    srand(time(0));
+
+    for (int i = 0; i < size; i++) {
+        floatArr[i] = static_cast<float>(rand()) / RAND_MAX * 100;
+        doubleArr[i] = static_cast<double>(rand()) / RAND_MAX * 100;
+        intArr[i] = rand() % 100;
+        charArr[i] = rand() % 26 + 'A';
+    }
+
+    std::cout << "Float array: ";
+    for (int i = 0; i < size; i++) {
+        std::cout << floatArr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Double array: ";
+    for (int i = 0; i < size; i++) {
+        std::cout << doubleArr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Int array: ";
+    for (int i = 0; i < size; i++) {
+        std::cout << intArr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Char array: ";
+    for (int i = 0; i < size; i++) {
+        std::cout << charArr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Index of the second maximum in float array: " << findSecondMaxIndex(floatArr, size) << std::endl;
+    std::cout << "Index of the second maximum in double array: " << findSecondMaxIndex(doubleArr, size) << std::endl;
+    std::cout << "Index of the second maximum in int array: " << findSecondMaxIndex(intArr, size) << std::endl;
+    std::cout << "Index of the second maximum in char array: " << findSecondMaxIndex(charArr, size) << std::endl;
+
+    return 0;
+}
